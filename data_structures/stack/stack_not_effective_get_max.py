@@ -44,14 +44,14 @@ def test():
         'pop': stack.pop,
         'peek': stack.peek,
         'size': stack.size,
-        'get_max': stack.get_max,
+        'get_max': lambda: print(stack.get_max()),
     }
     while count > 0:
         command, *args = input().strip().split()
         if commands.get(command) is not None:
             try:
                 if len(args) == 0:
-                    print(commands.get(command)())
+                    commands.get(command)()
                 else:
                     commands.get(command)(int(*args))
             except StackIsEmptyError:
