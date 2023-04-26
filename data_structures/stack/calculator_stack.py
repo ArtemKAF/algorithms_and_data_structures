@@ -1,7 +1,7 @@
-'''ID: 86355680 Реализация калькулятора с постфиксной нотацией, при условии,
+'''ID: 86433483 Реализация калькулятора с постфиксной нотацией, при условии,
 что деление математическое целочисленное.
 '''
-from typing import Optional, List
+from typing import List, Optional
 
 
 class StackIsEmpty(Exception):
@@ -13,20 +13,20 @@ class Stack:
     '''Класс стека на базе списка.'''
 
     def __init__(self) -> None:
-        self.__items__: List[int] = []
+        self._items: List[int] = []
 
     def is_empty(self) -> bool:
         '''Проверка стека на пустоту.'''
-        return len(self.__items__) == 0
+        return not self._items
 
     def push(self, item: int) -> None:
         '''Добавление элемента в стек.'''
-        self.__items__.append(item)
+        self._items.append(item)
 
     def pop(self) -> Optional[int]:
         '''Извлечение элемента из стека.'''
         if not self.is_empty():
-            return self.__items__.pop()
+            return self._items.pop()
         raise StackIsEmpty('Стек пуст.')
 
 
@@ -44,7 +44,12 @@ def test():
                 b, a = stack.pop(), stack.pop()
             except StackIsEmpty:
                 print('error')
-            stack.push(operations.get(element)(a, b))
+            try:
+                stack.push(operations.get(element)(a, b))
+            except UnboundLocalError:
+                print(
+                    f'Недостаточно операндов для выполнения операции {element}'
+                )
         else:
             stack.push(int(element))
     try:

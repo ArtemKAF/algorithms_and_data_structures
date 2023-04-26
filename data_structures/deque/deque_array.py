@@ -1,4 +1,4 @@
-'''ID: 86359348 Реализация двусторонней очереди на массиве в виде кольцевого
+'''ID: 86433540 Реализация двусторонней очереди на массиве в виде кольцевого
 буфера.
 '''
 from typing import List, Optional, Union
@@ -18,70 +18,70 @@ class MyDeque:
     '''Двусторонняя очередь на массиве в виде кольцевого буфера.'''
 
     def __init__(self, deque_size: int = 10) -> None:
-        self.__items__: List[Optional[int]] = [None] * deque_size
-        self.__deque_size__: int = 0
-        self.__head__: int = 0
-        self.__tail__: int = 0
+        self._items: List[Optional[int]] = [None] * deque_size
+        self._deque_size: int = 0
+        self._head: int = 0
+        self._tail: int = 0
 
-    def __get_new_index__(self, index: int, step: int) -> int:
+    def _get_new_index(self, index: int, step: int) -> int:
         '''Получение нового индекса, в зависимости от величины step.'''
-        return (index + step) % len(self.__items__)
+        return (index + step) % len(self._items)
 
     def size(self) -> int:
         '''Получение количества элементов в двусторонней очереди.'''
-        return self.__deque_size__
+        return self._deque_size
 
-    def is_empty(self) -> bool:
+    def _is_empty(self) -> bool:
         '''Проверка двусторонней очереди на пустоту.'''
-        return self.__deque_size__ == 0
+        return self._deque_size == 0
 
     def push_back(self, item: int) -> None:
         '''Вставка элемента в конец двусторонней очереди.'''
-        if self.__deque_size__ >= len(self.__items__):
+        if self._deque_size >= len(self._items):
             raise DequeIsFull('Двусторонняя очередь заполнена.')
 
-        self.__items__[self.__tail__] = item
+        self._items[self._tail] = item
         if (
-            self.__deque_size__ == 0
-            and self.__head__ == self.__tail__
+            self._deque_size == 0
+            and self._head == self._tail
         ):
-            self.__head__ = self.__get_new_index__(self.__head__,  -1)
+            self._head = self._get_new_index(self._head,  -1)
 
-        self.__tail__ = self.__get_new_index__(self.__tail__, 1)
-        self.__deque_size__ += 1
+        self._tail = self._get_new_index(self._tail, 1)
+        self._deque_size += 1
 
     def push_front(self, item: int) -> None:
         '''Вставка элемента в начало двусторонней очереди.'''
-        if self.__deque_size__ >= len(self.__items__):
+        if self._deque_size >= len(self._items):
             raise DequeIsFull('Двусторонняя очередь заполнена.')
 
-        self.__items__[self.__head__] = item
+        self._items[self._head] = item
         if (
-            self.__deque_size__ == 0
-            and self.__head__ == self.__tail__
+            self._deque_size == 0
+            and self._head == self._tail
         ):
-            self.__tail__ = self.__get_new_index__(self.__tail__, 1)
+            self._tail = self._get_new_index(self._tail, 1)
 
-        self.__head__ = self.__get_new_index__(self.__head__,  -1)
-        self.__deque_size__ += 1
+        self._head = self._get_new_index(self._head,  -1)
+        self._deque_size += 1
 
     def pop_front(self) -> Union[int, str]:
         '''Извлечение элемента из начала двусторонней очереди.'''
-        if self.__deque_size__ > 0:
-            self.__head__ = self.__get_new_index__(self.__head__, 1)
-            item = self.__items__[self.__head__]
-            self.__items__[self.__head__] = None
-            self.__deque_size__ -= 1
+        if self._deque_size > 0:
+            self._head = self._get_new_index(self._head, 1)
+            item = self._items[self._head]
+            self._items[self._head] = None
+            self._deque_size -= 1
             return item
         raise DequeIsEmpty('Двустороннея очередь пуста.')
 
     def pop_back(self) -> Union[int, str]:
         '''Извлечение элемента из конца двусторонней очереди.'''
-        if self.__deque_size__ > 0:
-            self.__tail__ = self.__get_new_index__(self.__tail__, -1)
-            item = self.__items__[self.__tail__]
-            self.__items__[self.__tail__] = None
-            self.__deque_size__ -= 1
+        if self._deque_size > 0:
+            self._tail = self._get_new_index(self._tail, -1)
+            item = self._items[self._tail]
+            self._items[self._tail] = None
+            self._deque_size -= 1
             return item
         raise DequeIsEmpty('Двустороннея очередь пуста.')
 
@@ -90,22 +90,17 @@ def test():
     count = int(input().strip())
     size = int(input().strip())
     deque = MyDeque(size)
-    commands = {
-        'push_back': deque.push_back,
-        'push_front': deque.push_front,
-        'pop_back': deque.pop_back,
-        'pop_front': deque.pop_front
-    }
     while count > 0:
         command, *args = input().strip().split()
-        if commands.get(command) is not None:
-            try:
-                if len(args) == 0:
-                    print(commands.get(command)())
-                else:
-                    commands.get(command)(*args)
-            except (DequeIsEmpty, DequeIsFull, ):
-                print('error')
+        try:
+            if len(args) == 0:
+                print(getattr(deque, command)())
+            else:
+                getattr(deque, command)(*args)
+        except (DequeIsEmpty, DequeIsFull, ):
+            print('error')
+        except AttributeError as err:
+            print(err)
         count -= 1
 
 
