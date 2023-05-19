@@ -1,9 +1,9 @@
-'''Основной скрипт тестирования алгоритмов сортировок.'''
+"""Основной скрипт тестирования алгоритмов сортировок."""
 from typing import List
 
-from algorithms.sorting import bubblesort as bs
-from algorithms.sorting import countsort as cs
-from algorithms.sorting import shakersort as sh_s
+from algorithms.sorting import bubble_sort as bs
+from algorithms.sorting import count_sort as cs
+from algorithms.sorting import shaker_sort as sh
 from utils import timeuse as tu
 
 if __name__ == '__main__':
@@ -32,5 +32,5 @@ if __name__ == '__main__':
         174, 15, 100, 59, 37, 82, 61, 90, 33, 64, 348, 279, 13, 11, 28, 63, 93
     ]
 
-    sorted_list: List[int] = tu.time_use(sh_s.shakersort)(not_sorted_list)
+    sorted_list: List[int] = tu.time_use(sh.shaker_sort)(not_sorted_list)
     print('\n', *sorted_list, end='\n\n')

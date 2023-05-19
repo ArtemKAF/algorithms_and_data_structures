@@ -1,7 +1,7 @@
-'''Реверс двусвязного списка.'''
+"""Реверс двусвязного списка."""
 
 
-class DoubleConnectedNode:
+class DoublyLinkedNode:
     def __init__(self, value, next=None, prev=None):
         self.value = value
         self.next = next
@@ -18,10 +18,10 @@ def solution(node):
 
 
 def test():
-    node3 = DoubleConnectedNode("node3")
-    node2 = DoubleConnectedNode("node2")
-    node1 = DoubleConnectedNode("node1")
-    node0 = DoubleConnectedNode("node0")
+    node3 = DoublyLinkedNode("node3")
+    node2 = DoublyLinkedNode("node2")
+    node1 = DoublyLinkedNode("node1")
+    node0 = DoublyLinkedNode("node0")
 
     node0.next = node1
 

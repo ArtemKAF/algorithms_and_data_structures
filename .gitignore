@@ -161,3 +161,7 @@ cython_debug/
 
 #VSCode
 .vscode/
+
+#Drafts
+*scratch*.py
+*draft*.py

@@ -1,4 +1,7 @@
-def bubble_sort(seq):
+from typing import List
+
+
+def bubble_sort(seq: List[int]) -> List[int]:
     """ Функция сортировки последовательности методом сортировки пузырьком"""
     for x in range(len(seq)-1, 0, -1):
         while x < len(seq) and seq[x-1] > seq[x]:

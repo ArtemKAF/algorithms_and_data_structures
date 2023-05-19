@@ -1,5 +1,8 @@
-def count_sort(seq):
-    """Функция сортировки последовательности методом сортировки подсчетом"""
+from typing import List
+
+
+def count_sort(seq: List[int]) -> List[int]:
+    """Функция сортировки последовательности методом сортировки подсчетом."""
     freq = [0]*(max(seq)+1)
     for i in range(len(seq)):
         freq[seq[i]] += 1

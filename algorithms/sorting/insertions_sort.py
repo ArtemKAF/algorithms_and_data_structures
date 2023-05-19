@@ -2,7 +2,7 @@ from typing import List
 
 
 def insertions_sort(seq: List[int]) -> List[int]:
-    '''Функция сортировки последовательности методом вставками.'''
+    """Функция сортировки последовательности методом вставками."""
     for i in range(1, len(seq)):
         insert_item = seq[i]
         j = i

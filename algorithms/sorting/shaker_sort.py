@@ -1,4 +1,7 @@
-def shakersort(seq):
+from typing import List
+
+
+def shaker_sort(seq: List[int]) -> List[int]:
     """Функция сортировки методом сортировки перемешиванием"""
     if len(seq) < 1:
         return seq

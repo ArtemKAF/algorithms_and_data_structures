@@ -1,21 +1,21 @@
-'''ID: 86433540 Реализация двусторонней очереди на массиве в виде кольцевого
+"""ID: 86433540 Реализация двусторонней очереди на массиве в виде кольцевого
 буфера.
-'''
+"""
 from typing import List, Optional, Union
 
 
 class DequeIsEmpty(Exception):
-    '''Класс ошибки доступа к элементу в пустой двусторонней очереди.'''
+    """Класс ошибки доступа к элементу в пустой двусторонней очереди."""
     ...
 
 
 class DequeIsFull(Exception):
-    '''Класс ошибки добавления элемента в заполненную двустороннюю очередь.'''
+    """Класс ошибки добавления элемента в заполненную двустороннюю очередь."""
     ...
 
 
 class MyDeque:
-    '''Двусторонняя очередь на массиве в виде кольцевого буфера.'''
+    """Двусторонняя очередь на массиве в виде кольцевого буфера."""
 
     def __init__(self, deque_size: int = 10) -> None:
         self._items: List[Optional[int]] = [None] * deque_size
@@ -24,19 +24,19 @@ class MyDeque:
         self._tail: int = 0
 
     def _get_new_index(self, index: int, step: int) -> int:
-        '''Получение нового индекса, в зависимости от величины step.'''
+        """Получение нового индекса, в зависимости от величины step."""
         return (index + step) % len(self._items)
 
     def size(self) -> int:
-        '''Получение количества элементов в двусторонней очереди.'''
+        """Получение количества элементов в двусторонней очереди."""
         return self._deque_size
 
     def _is_empty(self) -> bool:
-        '''Проверка двусторонней очереди на пустоту.'''
+        """Проверка двусторонней очереди на пустоту."""
         return self._deque_size == 0
 
     def push_back(self, item: int) -> None:
-        '''Вставка элемента в конец двусторонней очереди.'''
+        """Вставка элемента в конец двусторонней очереди."""
         if self._deque_size >= len(self._items):
             raise DequeIsFull('Двусторонняя очередь заполнена.')
 
@@ -51,7 +51,7 @@ class MyDeque:
         self._deque_size += 1
 
     def push_front(self, item: int) -> None:
-        '''Вставка элемента в начало двусторонней очереди.'''
+        """Вставка элемента в начало двусторонней очереди."""
         if self._deque_size >= len(self._items):
             raise DequeIsFull('Двусторонняя очередь заполнена.')
 
@@ -66,7 +66,7 @@ class MyDeque:
         self._deque_size += 1
 
     def pop_front(self) -> Union[int, str]:
-        '''Извлечение элемента из начала двусторонней очереди.'''
+        """Извлечение элемента из начала двусторонней очереди."""
         if self._deque_size > 0:
             self._head = self._get_new_index(self._head, 1)
             item = self._items[self._head]
@@ -76,7 +76,7 @@ class MyDeque:
         raise DequeIsEmpty('Двустороннея очередь пуста.')
 
     def pop_back(self) -> Union[int, str]:
-        '''Извлечение элемента из конца двусторонней очереди.'''
+        """Извлечение элемента из конца двусторонней очереди."""
         if self._deque_size > 0:
             self._tail = self._get_new_index(self._tail, -1)
             item = self._items[self._tail]
