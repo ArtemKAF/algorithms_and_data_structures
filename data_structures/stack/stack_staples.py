@@ -1,26 +1,29 @@
+from typing import Any
+
+
 class Stack:
-    def __init__(self):
+    def __init__(self) -> None:
         self.items = []
 
-    def push(self, item):
+    def push(self, item) -> None:
         self.items.append(item)
 
-    def pop(self):
+    def pop(self) -> Any:
         if self.size() == 0:
             print('error')
         else:
             return self.items.pop()
 
-    def peek(self):
+    def peek(self) -> Any:
         if self.size() != 0:
             return self.items[-1]
         return None
 
-    def size(self):
+    def size(self) -> int:
         return len(self.items)
 
 
-def test():
+def test() -> bool:
     staples = input().strip()
     stack = Stack()
     result = True
